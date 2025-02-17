@@ -429,7 +429,8 @@ form{}
 	align-items: center;
 	border-radius: 10px;
 	width: 120px;
-	margin: 20px;
+	margin-left: 145px;
+	margin-top: 20px;
 }
 
 .spiner{
