@@ -1,74 +1,78 @@
-<html>
-
-<title>Trail</title>
-  
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Trail</title>
   <link rel="icon" type="image/x-icon" href="logo.png">
-  
-<div id="app">
-  <canvas id="canvas"></canvas>
-  <div class="hero">
-    <a target="_blank" href="https://www.framer.com/@kevin-levron/"></a>
-  </div>
-</div>
   <style>
-    body, html, #app {
-  margin: 0;
-  width: 100%;
-  height: 100%;
-}
+    html, body, #app {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+    }
 
-body {
-  touch-action: none;
-}
+    body {
+      touch-action: none;
+      background: black;
+      overflow: hidden;
+      font-family: "Montserrat", serif;
+    }
 
-#app {
-  height: 100%;
-  font-family: "Montserrat", serif;
-}
+    #canvas {
+      position: fixed;
+      inset: 0;
+    }
 
-#app a {
-  text-decoration: none;
-  color: #fff;
-}
+    .hero {
+      position: relative;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
 
-.hero {
-  position: relative;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-}
-
-h1, h2, p {
-  margin: 0;
-  padding: 0;
-  color: white;
-  text-shadow: 0 0 20px rgba(0, 0, 0, 1);
-  line-height: 100%;
-  user-select: none;
-}
-
-h1 {
-  font-size: 80px;
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
-h2 {
-  font-size: 60px;
-  font-weight: 500;
-  text-transform: uppercase;
-}
-
-#canvas {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  overflow: hidden;
-}
+    h1 {
+      font-size: 80px;
+      color: white;
+      text-shadow: 0 0 20px black;
+      margin: 0;
+    }
   </style>
+</head>
+
+<body>
+  <div id="app">
+    <canvas id="canvas"></canvas>
+
+    <div class="hero">
+    </div>
+  </div>
+
+  <script type="module">
+    import TubesCursor from "https://cdn.jsdelivr.net/npm/threejs-components@0.0.19/build/cursors/tubes1.min.js";
+
+    const app = TubesCursor(document.getElementById("canvas"), {
+      tubes: {
+        colors: ["#f967fb", "#53bc28", "#6958d5"],
+        lights: {
+          intensity: 200,
+          colors: ["#83f36e", "#fe8a2e", "#ff008a", "#60aed5"]
+        }
+      }
+    });
+
+    document.body.addEventListener("click", () => {
+      app.tubes.setColors(randomColors(3));
+      app.tubes.setLightsColors(randomColors(4));
+    });
+
+    function randomColors(count) {
+      return Array.from({ length: count }, () =>
+        "#" + Math.floor(Math.random() * 16777215).toString(16).padStart(6, "0")
+      );
+    }
+  </script>
+</body>
 </html>
